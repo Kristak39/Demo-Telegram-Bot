@@ -5,25 +5,17 @@ import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.BotConfig;
 import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.ChoseLanguage;
 import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.Language;
 import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.UserLanguage;
-import com.Kristian.TelegramBot.Demo.Telegram.Bot.scripts.GetQuiz;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Pool;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.polls.SendPoll;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
-import org.telegram.telegrambots.meta.api.objects.polls.Poll;
-import org.telegram.telegrambots.meta.api.objects.polls.PollOption;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
