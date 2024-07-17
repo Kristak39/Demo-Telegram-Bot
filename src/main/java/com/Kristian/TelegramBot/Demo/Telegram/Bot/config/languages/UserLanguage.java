@@ -4,6 +4,7 @@ import lombok.Getter;
 
 public class UserLanguage {
 
+    @Getter
     private ChoseLanguage languageChoise;
     @Getter
     private Language language;

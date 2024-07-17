@@ -5,6 +5,7 @@ import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.BotConfig;
 import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.ChoseLanguage;
 import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.Language;
 import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.UserLanguage;
+import com.Kristian.TelegramBot.Demo.Telegram.Bot.scripts.PollGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -54,16 +55,24 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
 
             switch (messageText){
-                case "/start": startComandRecived(chatId,  usersCache.getFromCache(chatId).getLanguage());
-                break;
-                case "/startTest" : sendQuiz(chatId);
-                case "/en": usersCache.addToCache(chatId, new UserLanguage(ChoseLanguage.ENGLISH));
-                break;
-                case "/ru": usersCache.addToCache(chatId, new UserLanguage(ChoseLanguage.RUSSIAN));
-                break;
-                case "/ro": usersCache.addToCache(chatId, new UserLanguage(ChoseLanguage.ROMANIAN));
-                break;
-                default: sendMessage(chatId, language.getLanguage().startCommand());
+                case "/start" -> startCommandReceived(chatId,  usersCache.getFromCache(chatId).getLanguage());
+                case "/quiz" -> sendQuiz(chatId, usersCache.getFromCache(chatId).getLanguageChoise());
+                case "/en"-> {
+                    usersCache.addToCache(chatId, new UserLanguage(ChoseLanguage.ENGLISH));
+                    startCommandReceived(chatId,  usersCache.getFromCache(chatId).getLanguage());
+                }
+                case "/ru"-> {
+                    usersCache.addToCache(chatId, new UserLanguage(ChoseLanguage.RUSSIAN));
+                    startCommandReceived(chatId,  usersCache.getFromCache(chatId).getLanguage());
+                }
+                case "/ro" -> {
+                    usersCache.addToCache(chatId, new UserLanguage(ChoseLanguage.ROMANIAN));
+                    startCommandReceived(chatId,  usersCache.getFromCache(chatId).getLanguage());
+                }
+                case "/help" -> {
+                    startCommandReceived(chatId,  usersCache.getFromCache(chatId).getLanguage());
+                }
+                default -> sendMessage(chatId, language.getLanguage().startCommand());
             }
 
         }
@@ -82,11 +91,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             execute(message);
         }catch (TelegramApiException e){
-            log.error("TelegramApiException TelegramBot" + e.getMessage());
+            log.error(String.format("TelegramApiException TelegramBot %s", e.getMessage()));
         }
     }
 
-    private void startComandRecived(long chatId, Language language){
+    private void startCommandReceived(long chatId, Language language){
 
         String answer = String.format("""
                                            %s""", language.startCommand());
@@ -94,23 +103,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         log.info("Replied to user {}", chatId);
     }
 
-    private void sendQuiz(long chatId){
-        SendPoll poll = new SendPoll();
-        poll.setType("quiz");
-        List<String> options = new ArrayList<>();
-        options.add("1");
-        options.add("2");
-        options.add("3");
-        options.add("4");
-        poll.setChatId(String.valueOf(chatId));
-        poll.setQuestion("Right answer is 3");
-        poll.setCorrectOptionId(2);
-        poll.setOptions(options);
-
+    private void sendQuiz(long chatId , ChoseLanguage userLanguage){
         try {
-            execute(poll);
+            execute(PollGenerator.pollGenerator(chatId,userLanguage));
         }catch (TelegramApiException e){
-            log.error("Quiz send error" + e.getMessage());
+            log.error(String.format("Quiz error %s", e.getMessage()));
         }
     }
 }

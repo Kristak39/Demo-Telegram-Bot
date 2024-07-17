@@ -1,13 +1,12 @@
 package com.Kristian.TelegramBot.Demo.Telegram.Bot.cache;
 
-import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.Language;
 import com.Kristian.TelegramBot.Demo.Telegram.Bot.config.languages.UserLanguage;
 
 import java.util.Hashtable;
 import java.util.Map;
 
 public class UsersCache {
-    private Map<Long, UserLanguage> userCache = new Hashtable();
+    private Map<Long, UserLanguage> userCache = new Hashtable<>();
 
     public void addToCache(Long chatId, UserLanguage language){
         userCache.put(chatId,language);

@@ -71,13 +71,12 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.groovy/groovy-sql -->
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
-			<groupId>org.apache.groovy</groupId>
-			<artifactId>groovy-sql</artifactId>
-			<version>4.0.22</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
 		</dependency>
-
 
 	</dependencies>
 

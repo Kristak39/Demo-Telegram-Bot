@@ -7,12 +7,12 @@ public class EnglishCommandsText implements Language{
         return """
                 Welcome! This bot is designed to test your Java knowledge. Here is a list of commands you can use:
                                 
-                    /startTest - Start the test.
-                    /nextQuestion - Get the next question.
-                    /addQuestion - Add your own question.
-                    /score - Check your current score.
-                    /end - End the test and get the final result.
-                                
+                    /quiz - get quiz.
+                    
+                    /ru - switch language to Russian
+                    /ro - switch language to Romanian
+                    /en - switch language to English          
+                    
                 If you have any questions or need help, use the /help command. Good luck!""";
     }
 
